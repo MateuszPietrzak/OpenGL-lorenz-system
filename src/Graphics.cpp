@@ -15,7 +15,6 @@ void Graphics::init() {
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 4);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-    glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
 
 
     window = glfwCreateWindow(win_width, win_height, "OpenGL", nullptr, nullptr);
@@ -82,7 +81,8 @@ void Graphics::init() {
 }
 
 void Graphics::run() {
-    while (glfwGetKey(window, GLFW_KEY_SPACE) != GLFW_PRESS) {
+    while (glfwGetKey(window, GLFW_KEY_SPACE) != GLFW_PRESS && !glfwWindowShouldClose(window)) {
+        glClear(GL_COLOR_BUFFER_BIT);
         glfwSwapBuffers(window);
         glfwPollEvents();
     }
