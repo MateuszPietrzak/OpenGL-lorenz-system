@@ -37,7 +37,7 @@ private:
 
     GLFWwindow *window;
 
-    uint32_t win_width = 1200, win_height = 800;
+    uint32_t win_width = 800, win_height = 600;
 
     std::vector<glm::vec3> translations;
 

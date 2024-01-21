@@ -82,6 +82,11 @@ void Graphics::init() {
 }
 
 void Graphics::run() {
+    while (glfwGetKey(window, GLFW_KEY_SPACE) != GLFW_PRESS) {
+        glfwSwapBuffers(window);
+        glfwPollEvents();
+    }
+
     while (!glfwWindowShouldClose(window)) {
 
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
