@@ -1,23 +1,6 @@
-# Learning compute shaders
-(working on simple ray tracer)
+# Lorenz system particle simulation
+The particles are instanced and use offsets and colors passed by SSBO from the compute shader performing all calculations. The colors of the particles are determined by their velocity vectors.
+## Video
+[![](https://img.youtube.com/vi/9aicOIlKF0c/0.jpg)](https://youtu.be/9aicOIlKF0c)
 
-## Prerequisites
-- CMake
-- [GLFW](https://www.glfw.org/)
-
-## Instructions
-Press space to cycle through shaders.
-
-## Mandelbrot set
-![scr_420](https://github.com/MateuszPietrzak/OpenGL-compute-fun/assets/60319969/6372fe67-93da-414b-8fa7-dd1b7883a938)
-
-As a warm-up I created a Mandelbrot set visualizer.
-
-## Raytracer WIP
-![scr_423](https://github.com/MateuszPietrzak/OpenGL-compute-fun/assets/60319969/e86a2738-ab52-45b4-8f35-4fa52168b203)
-
-Implementing a simple raytracer following the "Ray Tracing in One Weekend" book.
-
-## Resources
-- https://antongerdelan.net/opengl/compute.html
-- https://raytracing.github.io/books/RayTracingInOneWeekend.html
+Sadly, the YouTube compression here is terrible, but it gets better once the system reaches its stable state.
