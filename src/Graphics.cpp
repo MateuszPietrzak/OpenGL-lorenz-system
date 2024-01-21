@@ -44,7 +44,7 @@ void Graphics::init() {
 
     translations.resize(NUM_PARTICLES);
     std::mt19937 rand(2);
-    std::uniform_real_distribution<float> dist(-30.0, 30.0);
+    std::uniform_real_distribution<float> dist(-300.0, 300.0);
     for (int i = 0; i < NUM_PARTICLES; i++) {
         while (glm::distance(translations[i], glm::vec3(0.0f, 0.0f, 0.0f)) <= 1.0) {
             translations[i] = glm::vec3(dist(rand), dist(rand), dist(rand));
@@ -58,7 +58,8 @@ void Graphics::init() {
 
     glGenVertexArrays(1, &quad_vao);
     glGenBuffers(1, &quad_vbo);
-    glGenBuffers(1, &instance_ssbo);
+    glGenBuffers(1, &instance_pos_ssbo);
+    glGenBuffers(1, &instance_col_ssbo);
 
     glBindVertexArray(quad_vao);
     glBindBuffer(GL_ARRAY_BUFFER, quad_vbo);
@@ -68,10 +69,13 @@ void Graphics::init() {
     glEnableVertexAttribArray(0);
     glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), (void *) 0);
 
-
-    glBindBuffer(GL_SHADER_STORAGE_BUFFER, instance_ssbo);
+    glBindBuffer(GL_SHADER_STORAGE_BUFFER, instance_pos_ssbo);
     glBufferData(GL_SHADER_STORAGE_BUFFER, sizeof(glm::vec3) * NUM_PARTICLES, &translations[0], GL_STATIC_DRAW);
-    glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 3, instance_ssbo);
+    glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 3, instance_pos_ssbo);
+
+    glBindBuffer(GL_SHADER_STORAGE_BUFFER, instance_col_ssbo);
+    glBufferData(GL_SHADER_STORAGE_BUFFER, sizeof(glm::vec3) * NUM_PARTICLES, nullptr, GL_STATIC_DRAW);
+    glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 4, instance_col_ssbo);
 
     compute_particles = new ComputeShader("assets/shaders/compute_particles.glsl");
 
@@ -89,9 +93,9 @@ void Graphics::run() {
         particle_renderer_shader->use();
 
         glm::mat4 model = glm::mat4(1.0);
-        model = glm::scale(model, glm::vec3(0.2f, 0.2f, 0.2f));
-        glm::mat4 camera = glm::lookAt(glm::vec3(100.0f, 0.0f, 100.0f),
-                                       glm::vec3(30.0f, 0.0f, 50.0f),
+        model = glm::scale(model, glm::vec3(0.05f, 0.05f, 0.05f));
+        glm::mat4 camera = glm::lookAt(glm::vec3(0.0f, 0.0f, 100.0f),
+                                       glm::vec3(0.0f, 0.0f, 0.0f),
                                        glm::vec3(0.0f, 1.0f, 0.0f));
         glm::mat4 projection = glm::perspective(glm::radians(45.0f), (float) win_width / win_height, 1.0f, 1000.0f);
 

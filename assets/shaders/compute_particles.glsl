@@ -7,6 +7,11 @@ layout (std430, binding = 3) buffer Offsets
     vec3 data[];
 } offsets;
 
+layout (std430, binding = 4) buffer Colors
+{
+    vec3 data[];
+} colors;
+
 void main() {
     int coords = int(gl_GlobalInvocationID.x);
 
@@ -24,4 +29,5 @@ void main() {
 
 
     offsets.data[coords] = pos;
+    colors.data[coords] = normalize(vec3(dx, dy, dz)) / 2.0 + 0.5;
 }

@@ -33,7 +33,7 @@ private:
             -1.0f, -1.0f
     };
 
-    const int NUM_PARTICLES = 10000;
+    const int NUM_PARTICLES = 1000000;
 
     GLFWwindow *window;
 
@@ -43,7 +43,7 @@ private:
 
     GraphicsShader *particle_renderer_shader;
 
-    uint32_t quad_vao, quad_vbo, instance_ssbo;
+    uint32_t quad_vao, quad_vbo, instance_pos_ssbo, instance_col_ssbo;
 
     ComputeShader* compute_particles;
 };
