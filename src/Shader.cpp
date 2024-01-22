@@ -20,3 +20,20 @@ std::string Shader::readFile(std::string &path) {
 void Shader::use() {
     glUseProgram(shader_id);
 }
+
+void Shader::setInt(std::string var_name, int val) {
+    glUniform1i(glGetUniformLocation(shader_id, var_name.c_str()), val);
+}
+
+void Shader::setFloat(std::string var_name, float val) {
+    glUniform1f(glGetUniformLocation(shader_id, var_name.c_str()), val);
+}
+
+void Shader::setVec2(std::string var_name, glm::vec2 val) {
+    glUniform2f(glGetUniformLocation(shader_id, var_name.c_str()), val.x, val.y);
+}
+
+void Shader::setMat4(std::string var_name, glm::mat4 val) {
+    glUniformMatrix4fv(glGetUniformLocation(shader_id, var_name.c_str()), 1, GL_FALSE, &val[0][0]);
+}
+

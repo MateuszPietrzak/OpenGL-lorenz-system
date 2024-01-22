@@ -1,6 +1,9 @@
 #version 460 core
 
-layout (local_size_x = 1) in;
+uniform float delta_time;
+uniform float speed;
+
+layout (local_size_x = 32) in;
 
 layout (std430, binding = 3) buffer Offsets
 {
@@ -25,7 +28,7 @@ void main() {
     float dy = pos.x * (c - pos.z) - pos.y;
     float dz = pos.x * pos.y - b * pos.z;
 
-    pos += vec3(dx, dy, dz) * 0.001;
+    pos += vec3(dx, dy, dz) * delta_time * speed;
 
 
     offsets.data[coords] = pos;

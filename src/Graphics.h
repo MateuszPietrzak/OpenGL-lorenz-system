@@ -33,7 +33,8 @@ private:
             -1.0f, -1.0f
     };
 
-    const int NUM_PARTICLES = 1000000;
+    const int NUM_PARTICLES = 1 << 20;
+    const int LOCAL_SIZE = 1 << 5;
 
     GLFWwindow *window;
 

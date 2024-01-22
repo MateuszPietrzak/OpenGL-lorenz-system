@@ -50,15 +50,3 @@ GraphicsShader::GraphicsShader(std::string vert_path, std::string frag_path) {
     glDeleteShader(fragment_shader);
 }
 
-void GraphicsShader::setInt(std::string var_name, int val) {
-    glUniform1i(glGetUniformLocation(shader_id, var_name.c_str()), val);
-}
-
-void GraphicsShader::setVec2(std::string var_name, glm::vec2 val) {
-    glUniform2f(glGetUniformLocation(shader_id, var_name.c_str()), val.x, val.y);
-}
-
-void GraphicsShader::setMat4(std::string var_name, glm::mat4 val) {
-    glUniformMatrix4fv(glGetUniformLocation(shader_id, var_name.c_str()), 1, GL_FALSE, &val[0][0]);
-}
-

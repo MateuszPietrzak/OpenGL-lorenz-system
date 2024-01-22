@@ -77,7 +77,8 @@ void Graphics::init() {
     glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 4, instance_col_ssbo);
 
     compute_particles = new ComputeShader("assets/shaders/compute_particles.glsl");
-
+    compute_particles->use();
+    compute_particles->setFloat("speed", 0.1);
 }
 
 void Graphics::run() {
@@ -86,14 +87,17 @@ void Graphics::run() {
         glfwSwapBuffers(window);
         glfwPollEvents();
     }
+    double frame_start = glfwGetTime();
+    double frame_end = glfwGetTime();
+    double  delta_t = 0.0;
 
     while (!glfwWindowShouldClose(window)) {
-
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-
         compute_particles->use();
-        glDispatchCompute(NUM_PARTICLES, 1, 1);
+        compute_particles->setFloat("delta_time", delta_t);
+
+        glDispatchCompute(NUM_PARTICLES / LOCAL_SIZE, 1, 1);
 
         particle_renderer_shader->use();
 
@@ -113,6 +117,10 @@ void Graphics::run() {
 
         glfwSwapBuffers(window);
         glfwPollEvents();
+
+        frame_end = glfwGetTime();
+        delta_t = frame_end - frame_start;
+        frame_start = frame_end;
     }
 }
 
